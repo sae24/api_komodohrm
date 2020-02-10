@@ -15,8 +15,8 @@ use \Illuminate\Auth\RequestGuard;
 //CRUD API ABSENSI 
 $router->post('/tambahDataAbsensi', 'C_Absensi@inputdata');
 $router->get('/viewsDataAbsensi','C_Absensi@index');
-$router->get('/viewDataAbsensi/{id}','C_Absensi@view');
-$router->put('/updateDataAbsensi/{id}','C_Absensi@update');
+$router->get('/viewDataAbsensi/{id_absensi}','C_Absensi@view');
+$router->put('/updateDataAbsensi/{id_absensi}','C_Absensi@update');
 $router->post('/updateDataAbsensi/{id}','C_Absensi@updatedata');
 $router->delete('/deleteDataAbsensi/{id}','C_Absensi@delete');
 //LOGIN USER
@@ -37,10 +37,10 @@ $router->delete('/deleteDataUser/{id}','C_User@delete');
 //CRUD API ABSENSI LEVEL
 $router->post('/tambahDataAbsensiLevel', 'C_Absensi_Level@inputdata');
 $router->get('/viewsDataAbsensiLevel','C_Absensi_Level@index');
-$router->get('/viewDataAbsensiLevel/{id}','C_Absensi_Level@view');
-$router->put('/updateDataAbsensiLevel/{id}','C_Absensi_Level@update');
-$router->post('/updateDataAbsensiLevel/{id}','C_Absensi_Level@updatedata');
-$router->delete('/deleteDataAbsensiLevel/{id}','C_Absensi_Level@delete');
+$router->get('/viewDataAbsensiLevel/{id_absensi_level}','C_Absensi_Level@view');
+$router->put('/updateDataAbsensiLevel/{id_absensi_level}','C_Absensi_Level@update');
+$router->post('/updateDataAbsensiLevel/{id_absensi_level}','C_Absensi_Level@updatedata');
+$router->delete('/deleteDataAbsensiLevel/{id_absensi_level}','C_Absensi_Level@delete');
 
 //CRUD API KARYAWAN
 $router->post('/tambahDataKaryawan', 'C_Karyawan@inputdata');

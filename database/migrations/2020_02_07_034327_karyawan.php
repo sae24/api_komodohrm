@@ -14,7 +14,7 @@ class Karyawan extends Migration
     public function up()
     {
         Schema::create('karyawan', function (Blueprint $table) {
-            $table->uuid('id_karyawan');
+            $table->uuid('id_karyawan')->primary();
             $table->string('nama_lengkap')->nullable();
             $table->string('nama_panggilan')->nullable();
             $table->text('alamat_domisili')->nullable();

@@ -42,8 +42,8 @@ class C_Absensi_Level extends Controller
             'data' => $data
         ];}
 
-    public function view($id){
-        $post = Absensi_Level::find($id);
+    public function view($id_absensi_level){
+        $post = Absensi_Level::where('id_absensi_level',$id_absensi_level)->get();
         if (! $post) {
             return response()->json([
                 'message' => 'post not found'
@@ -60,11 +60,11 @@ class C_Absensi_Level extends Controller
             'data' => $data
         ];}
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id_absensi_level){
     
-    $post = Absensi_Level::find($id);
+    $post = Absensi_Level::findOrFail($id_absensi_level)->first();
     if ($post) {
-        $post->update($request->all());
+        $post->fill($request->all())->save();
 
         $data = 
     	['status' => true,
@@ -84,15 +84,19 @@ class C_Absensi_Level extends Controller
     ]);}
 
     //update with post
-	public function updatedata(Request $request, $id){
+	public function updatedata(Request $request, $id_absensi_level){
 	 $this->validate($request,
     [
-        'nama' =>'required',
-        'kehadiran' =>'required'
+        'level' =>'required',
+        'label' =>'required'
     ]);
-    $post = Absensi_Level::find($id);
+    $post = Absensi_Level::where('id_absensi_level',$id_absensi_level)->get();
     if ($post) {
-        $post->update($request->all());
+        $post->update([
+            'level'=> $request->get('level'), 
+            'label'=> $request->get('label'),
+        
+        ]);
 
         $data = 
     	['status' => true,
@@ -110,8 +114,8 @@ class C_Absensi_Level extends Controller
         'hasil' => null
     ]);}
 
-	public function delete($id){
-        $post = Absensi_Level::find($id);
+	public function delete($id_absensi_level){
+        $post = Absensi_Level::find($id_absensi_level);
 
         if ($post) {
             $post->delete();

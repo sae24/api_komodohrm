@@ -14,7 +14,7 @@ class AbsensiLevel extends Migration
     public function up()
     {
         Schema::create('absensi_level', function (Blueprint $table){
-            $table->uuid('id_absensi_level');
+            $table->uuid('id_absensi_level')->primary();
             $table->string('level')->nullable();
             $table->string('label')->nullable();
             $table->timestamps();

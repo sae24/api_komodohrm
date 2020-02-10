@@ -12,7 +12,7 @@ use App\Traits\UsesUuid;
 
 class User extends Model 
 {
-    use UsesUuid;
+    // use UsesUuid;
     protected $guarded = ['uuid'];
     protected $table = 'users';
     protected $fillable = ['id_user','nama', 'email','password','role','created_by','created_date','status'];

@@ -74,9 +74,9 @@ class C_Absensi extends Controller
             'data' => $data
         ];}
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id_absensi){
     
-    $post = Absensi::find($id);
+    $post = Absensi::find($id_absensi);
     if ($post) {
         $post->update($request->all());
 
