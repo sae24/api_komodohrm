@@ -17,15 +17,18 @@ use DateTime;
 class C_User extends Controller
 {
 	public function index(){
-    	$data = 
-    	['status' => true,
-         'message' => 'Data Ditemukan',
-         'code' => 200,
-         'hasil' => User::all()];
+        $data = 
+        [
+            'status' => true,
+            'message' => 'Data Ditemukan',     
+            'code' => 200,       
+            'hasil' => User::all()
+        ];
 
         return [
-        	'data'=> $data
-        ];}
+            'data'=> $data
+        ];
+    }
 
     public function inputdata(Request $request) {
         $this->validate($request, [
@@ -50,17 +53,19 @@ class C_User extends Controller
             'status'=> $request->get('status')
         ]);
         $data = 
-    	['status' => true,
-         'message' => 'Berhasil Ditambahkan',
-         'code' => 200,
-         'hasil' => $inputan];
+        [
+            'status' => true,
+            'message' => 'Berhasil Ditambahkan',
+            'code' => 200,        
+            'hasil' => $inputan
+        ];
 
         return [
             'data' => $data
         ];}
 
-    public function view($id){
-        $post = User::find($id);
+    public function view($id_user){
+        $post = User::find($id_user);
         if (! $post) {
             return response()->json([
                 'message' => 'post not found'
@@ -77,9 +82,9 @@ class C_User extends Controller
             'data' => $data
         ];}
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id_user){
     
-    $post = User::find($id);
+    $post = User::find($id_user);
     if ($post) {
         $post->update([
             'nama'=> $request->get('nama'), 
@@ -109,7 +114,7 @@ class C_User extends Controller
     ]);}
 
     //update with post
-	public function updatedata(Request $request, $id){
+	public function updatedata(Request $request, $id_user){
 	 $this->validate($request,
     [
         'nama'=> 'required', 
@@ -120,7 +125,7 @@ class C_User extends Controller
         'created_date'=> 'required',
         'status'=> 'required',
     ]);
-    $post = User::find($id);
+    $post = User::find($id_user);
     if ($post) {
         $post->update($request->all());
 
@@ -140,8 +145,8 @@ class C_User extends Controller
         'hasil' => null
     ]);}
 
-	public function delete($id){
-        $post = User::find($id);
+	public function delete($id_user){
+        $post = User::find($id_user);
 
         if ($post) {
             $post->delete();

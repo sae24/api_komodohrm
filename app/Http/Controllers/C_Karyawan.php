@@ -82,8 +82,8 @@ class C_Karyawan extends Controller
             'data' => $data
         ];}
 
-    public function view($id){
-        $post = Karyawan::find($id);
+    public function view($id_karyawan){
+        $post = Karyawan::find($id_karyawan);
         if (! $post) {
             return response()->json([
                 'message' => 'post not found'
@@ -100,9 +100,9 @@ class C_Karyawan extends Controller
             'data' => $data
         ];}
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id_karyawan){
     
-    $post = Karyawan::find($id);
+    $post = Karyawan::find($id_karyawan);
     if ($post) {
         $post->update($request->all());
 
@@ -124,13 +124,13 @@ class C_Karyawan extends Controller
     ]);}
 
     //update with post
-	public function updatedata(Request $request, $id){
+	public function updatedata(Request $request, $id_karyawan){
 	 $this->validate($request,
     [
         'nama' =>'required',
         'kehadiran' =>'required'
     ]);
-    $post = Karyawan::find($id);
+    $post = Karyawan::find($id_karyawan);
     if ($post) {
         $post->update($request->all());
 
@@ -150,8 +150,8 @@ class C_Karyawan extends Controller
         'hasil' => null
     ]);}
 
-	public function delete($id){
-        $post = Karyawan::find($id);
+	public function delete($id_karyawan){
+        $post = Karyawan::find($id_karyawan);
 
         if ($post) {
             $post->delete();

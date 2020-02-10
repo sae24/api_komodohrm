@@ -56,8 +56,8 @@ class C_Absensi extends Controller
             'data' => $data
         ];}
 
-    public function view($id){
-        $post = Absensi::find($id);
+    public function view($id_absensi){
+        $post = Absensi::find($id_absensi);
         if (! $post) {
             return response()->json([
                 'message' => 'post not found'
@@ -98,13 +98,13 @@ class C_Absensi extends Controller
     ]);}
 
     //update with post
-	public function updatedata(Request $request, $id){
+	public function updatedata(Request $request, $id_absensi){
 	 $this->validate($request,
     [
         'nama' =>'required',
         'kehadiran' =>'required'
     ]);
-    $post = Absensi::find($id);
+    $post = Absensi::find($id_absensi);
     if ($post) {
         $post->update($request->all());
 
@@ -124,8 +124,8 @@ class C_Absensi extends Controller
         'hasil' => null
     ]);}
 
-	public function delete($id){
-        $post = Absensi::find($id);
+	public function delete($id_absensi){
+        $post = Absensi::find($id_absensi);
 
         if ($post) {
             $post->delete();

@@ -17,8 +17,8 @@ $router->post('/tambahDataAbsensi', 'C_Absensi@inputdata');
 $router->get('/viewsDataAbsensi','C_Absensi@index');
 $router->get('/viewDataAbsensi/{id_absensi}','C_Absensi@view');
 $router->put('/updateDataAbsensi/{id_absensi}','C_Absensi@update');
-$router->post('/updateDataAbsensi/{id}','C_Absensi@updatedata');
-$router->delete('/deleteDataAbsensi/{id}','C_Absensi@delete');
+$router->post('/updateDataAbsensi/{id_absensi}','C_Absensi@updatedata');
+$router->delete('/deleteDataAbsensi/{id_absensi}','C_Absensi@delete');
 //LOGIN USER
 $router->post('auth/login','AuthController@authenticate');
 // $router->get('/login', function (Request $request) {
@@ -29,10 +29,10 @@ $router->post('auth/login','AuthController@authenticate');
 //CRUD API USER
 $router->post('/tambahDataUser', 'C_User@inputdata');
 $router->get('/viewsDataUser','C_User@index');
-$router->get('/viewDataUser/{id}','C_User@view');
-$router->put('/updateDataUser/{id}','C_User@update');
-$router->post('/updateDataUser/{id}','C_User@updatedata');
-$router->delete('/deleteDataUser/{id}','C_User@delete');
+$router->get('/viewDataUser/{id_user}','C_User@view');
+$router->put('/updateDataUser/{id_user}','C_User@update');
+$router->post('/updateDataUser/{id_user}','C_User@updatedata');
+$router->delete('/deleteDataUser/{id_user}','C_User@delete');
 
 //CRUD API ABSENSI LEVEL
 $router->post('/tambahDataAbsensiLevel', 'C_Absensi_Level@inputdata');
@@ -45,7 +45,7 @@ $router->delete('/deleteDataAbsensiLevel/{id_absensi_level}','C_Absensi_Level@de
 //CRUD API KARYAWAN
 $router->post('/tambahDataKaryawan', 'C_Karyawan@inputdata');
 $router->get('/viewsDataKaryawan','C_Karyawan@index');
-$router->get('/viewDataKaryawan/{id}','C_Karyawan@view');
-$router->put('/updateDataKaryawan/{id}','C_Karyawan@update');
-$router->post('/updateDataKaryawan/{id}','C_Karyawan@updatedata');
-$router->delete('/deleteDataKaryawan/{id}','C_Karyawan@delete');
+$router->get('/viewDataKaryawan/{id_karyawan}','C_Karyawan@view');
+$router->put('/updateDataKaryawan/{id_karyawan}','C_Karyawan@update');
+$router->post('/updateDataKaryawan/{id_karyawan}','C_Karyawan@updatedata');
+$router->delete('/deleteDataKaryawan/{id_karyawan}','C_Karyawan@delete');
