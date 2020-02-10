@@ -38,7 +38,7 @@ class AuthController extends BaseController
     protected function jwt(User $user) {
         $payload = [
             'iss' => "lumen-jwt", 
-            'sub/id' => $user->id, // Subjek  token
+            'sub/id' => $user->id_user, // Subjek  token
             'nama'=>$user->nama,
             'iat' => time(), // Waktu token dibuat. 
             'exp' => time() + 60*60 // waktu token kadaluarsa
