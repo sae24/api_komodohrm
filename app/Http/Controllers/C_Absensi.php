@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi_Level;
 use App\Models\Absensi;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 
@@ -23,23 +25,23 @@ class C_Absensi extends Controller
     public function inputdata(Request $request) {
         $this->validate($request, [
             // 'id_absensi' => 'required',
-            'checkin_date' => 'required', 
-            'checkin_time' => 'required',
-            'check_out_date' => 'required',
-            'check_out_time' => 'required',
+            // 'checkin_date' => 'required', 
+            // 'checkin_time' => 'required',
+            // 'check_out_date' => 'required',
+            // 'check_out_time' => 'required',
             'lattitude'=> 'required',
             'longitude'=> 'required',
-            'id_level'=> 'required',
-            'late_reason'=> 'required',
-            'leave_reason'=> 'required',
+            // 'id_level'=> 'required',
+            // 'late_reason'=> 'required',
+            // 'leave_reason'=> 'required',
         ]);
 
         $inputan = Absensi::create([
             'id_absensi'=>Str::uuid()->toString('id_absensi'),
-            'checkin_date'=> $request->get('checkin_date'), 
-            'checkin_time'=> $request->get('checkin_time'),
-            'check_out_date'=> $request->get('check_out_date'),
-            'check_out_time'=> $request->get('check_out_time'),
+            'checkin_date'=> Carbon::now()->toDateString('checkin_date'), 
+            'checkin_time'=> Carbon::now()->format('H:i:s'),
+            // 'check_out_date'=> $request->get('check_out_date'),
+            // 'check_out_time'=> $request->get('check_out_time'),
             'lattitude'=> $request->get('lattitude'),
             'longitude'=> $request->get('longitude'),
             'id_level'=> $request->get('id_level'),
@@ -54,7 +56,27 @@ class C_Absensi extends Controller
 
         return [
             'data' => $data
-        ];}
+        ];
+    }
+    public function checkOut(Request $request ,$id_absensi){
+        $post=Absensi::find($id_absensi);
+        if($post){
+            $post->update([
+                'check_out_date'=> Carbon::now()->toDateString('check_out_date'),
+                'check_out_time'=> Carbon::now()->format('H:i:s')
+            ]);
+        }
+        $data = 
+    	['status' => true,
+         'message' => 'Berhasil Checkout',
+         'code' => 200,
+         'hasil' => $post];
+
+        return [
+            'data' => $data
+        ];
+
+    }
 
     public function view($id_absensi){
         $post = Absensi::find($id_absensi);
