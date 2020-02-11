@@ -28,6 +28,7 @@ $router->get('/viewDataAbsensi/{id_absensi}','C_Absensi@view');
 $router->put('/updateDataAbsensi/{id_absensi}','C_Absensi@update');
 $router->post('/updateDataAbsensi/{id_absensi}','C_Absensi@updatedata');
 $router->delete('/deleteDataAbsensi/{id_absensi}','C_Absensi@delete');
+$router->post('/checkOut/{id_absensi}','C_Absensi@checkOut');
 //LOGIN USER
 $router->post('auth/login','AuthController@authenticate');
 $router->group(
