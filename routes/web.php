@@ -1,7 +1,8 @@
 <?php
+use App\Models\User;
 use \Illuminate\Http\Request;
 use \Illuminate\Auth\RequestGuard;
-
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -12,6 +13,14 @@ use \Illuminate\Auth\RequestGuard;
 | and give it the Closure to call when that URI is requested.
 |
 */
+$router->get('/', function () use ($router) {
+    return $router->app->version();
+});
+//get key
+$router->get('/key', function() {
+    return Str::random(32);
+});
+
 //CRUD API ABSENSI 
 $router->post('/tambahDataAbsensi', 'C_Absensi@inputdata');
 $router->get('/viewsDataAbsensi','C_Absensi@index');
@@ -21,11 +30,16 @@ $router->post('/updateDataAbsensi/{id_absensi}','C_Absensi@updatedata');
 $router->delete('/deleteDataAbsensi/{id_absensi}','C_Absensi@delete');
 //LOGIN USER
 $router->post('auth/login','AuthController@authenticate');
-// $router->get('/login', function (Request $request) {
-//     $token = app('auth')->attempt($request->only('email', 'password'));
+$router->group(
+    ['middleware' => 'jwt.auth'], 
+    function() use ($router) {
+        $router->get('users', function() {
+            $users = \App\User::all();
+            return response()->json($users);
+        });
+    }
+);
 
-//     return response()->json(compact('token'));
-// });
 //CRUD API USER
 $router->post('/tambahDataUser', 'C_User@inputdata');
 $router->get('/viewsDataUser','C_User@index');

@@ -10,7 +10,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use \Illuminate\Auth\RequestGuard;
 use App\Traits\UsesUuid;
 
-class User extends Model 
+class User extends Model
 {
     // use UsesUuid;
     protected $primaryKey='id_user';

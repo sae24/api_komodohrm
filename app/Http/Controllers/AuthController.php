@@ -39,7 +39,6 @@ class AuthController extends BaseController
         $payload = [
             'iss' => "lumen-jwt", 
             'sub/id' => $user->id_user, // Subjek  token
-            'nama'=>$user->nama,
             'iat' => time(), // Waktu token dibuat. 
             'exp' => time() + 60*60 // waktu token kadaluarsa
         ];
