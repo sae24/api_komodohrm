@@ -13,6 +13,7 @@
         "laravel/lumen-framework": "^6.0",
         "lcobucci/jwt": "^3.3",
         "moontoast/math": "^1.2",
+        "nesbot/carbon": "^2.29",
         "ramsey/uuid": "^3.9",
         "tymon/jwt-auth": "dev-develop"
     },

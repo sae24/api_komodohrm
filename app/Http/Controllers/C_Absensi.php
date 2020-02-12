@@ -22,7 +22,7 @@ class C_Absensi extends Controller
         	'data'=> $data
         ];}
 
-    public function inputdata(Request $request) {
+    public function inputdata(Request $request ) {
         $this->validate($request, [
             // 'id_absensi' => 'required',
             // 'checkin_date' => 'required', 
@@ -35,19 +35,35 @@ class C_Absensi extends Controller
             // 'late_reason'=> 'required',
             // 'leave_reason'=> 'required',
         ]);
-
+        // $cek = Absensi::select('checkin_time')->where('checkin_time','=',$request->checkin_time)->first();
+        $cek = Carbon::now()->format('H:i:s');
+        
+        if($cek<="08:00:00"){
+            $input = 1;
+        }
+        else if($cek>='08:00:00' && $cek<='08:30:00'){
+            $input =2;
+        }
+        else if($cek>='08:30:00'&& $cek<='09:00:00'){
+            $input = 3;
+        }
+        else if($cek>='09:00:00'){
+            $input = 4;
+            $this->validate($request, [
+            'late_reason'=>'required'
+            ]);
+        }
         $inputan = Absensi::create([
             'id_absensi'=>Str::uuid()->toString('id_absensi'),
             'checkin_date'=> Carbon::now()->toDateString('checkin_date'), 
             'checkin_time'=> Carbon::now()->format('H:i:s'),
-            // 'check_out_date'=> $request->get('check_out_date'),
-            // 'check_out_time'=> $request->get('check_out_time'),
             'lattitude'=> $request->get('lattitude'),
             'longitude'=> $request->get('longitude'),
-            'id_level'=> $request->get('id_level'),
+            'id_level'=> $input,
             'late_reason'=>$request->get('late_reason'),
             'leave_reason'=>$request->get('leave_reason')
         ]);
+        
         $data = 
     	['status' => true,
          'message' => 'Berhasil Ditambahkan',
@@ -59,11 +75,18 @@ class C_Absensi extends Controller
         ];
     }
     public function checkOut(Request $request ,$id_absensi){
+        $cek = Carbon::now()->format('H:i:s');
+        if($cek>='09:00:00' && $cek<='17:00:00'){
+            $this->validate($request,[
+                'leave_reason'=>'required'
+            ]);
+        }
         $post=Absensi::find($id_absensi);
         if($post){
             $post->update([
                 'check_out_date'=> Carbon::now()->toDateString('check_out_date'),
-                'check_out_time'=> Carbon::now()->format('H:i:s')
+                'check_out_time'=> Carbon::now()->format('H:i:s'),
+                'leave_reason'=>$request->get('leave_reason')
             ]);
         }
         $data = 
