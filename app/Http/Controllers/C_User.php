@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Karyawan;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
+use Carbon\Carbon;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +14,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
 use App\Message;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use DateTime;
 
 class C_User extends Controller
@@ -36,21 +39,25 @@ class C_User extends Controller
             'nama'=> 'required', 
             'email'=> 'required',
             'password'=> 'required',
-            'role'=> 'required',
-            'created_by'=> 'required',
-            'created_date'=> 'required',
-            'status'=> 'required',
+            // 'role'=> 'required',
+            // 'created_by'=> 'required',
+            // 'created_date'=> 'required',
+            // 'status'=> 'required',
         ]);
-
+        $id_user=Str::uuid()->toString('id_user');
         $inputan = User::create([
-            'id_user'=>Str::uuid()->toString('id_user'),
+            'id_user'=>$id_user,
             'nama'=> $request->get('nama'), 
             'email'=> $request->get('email'),
             'password'=> Hash::make($request->get('password')),
             'role'=> $request->get('role'),
             'created_by'=> $request->get('created_by'),
-            'created_date'=> $request->get('created_date'),
+            'created_date'=> Carbon::now()->toDateString('created_date'),
             'status'=> $request->get('status')
+        ]);
+        Karyawan::create([
+            'id_karyawan'=>Str::uuid()->toString('id_karyawan'),
+            'id_user'=>$id_user
         ]);
         $data = 
         [

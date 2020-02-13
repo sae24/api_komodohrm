@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Session;
 
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
@@ -18,68 +19,6 @@ class C_Karyawan extends Controller
 
         return [
         	'data'=> $data
-        ];}
-
-    public function inputdata(Request $request) {
-        $this->validate($request, [
-            // 'id_karyawan' => 'required',
-            'nama_lengkap'=> 'required', 
-            'nama_panggilan'=> 'required',
-            'alamat_domisili'=> 'required',
-            'negara_domisili'=> 'required',
-            'provinsi_domisili'=> 'required',
-            'kota_domisili'=> 'required',
-            'tempat_lahir'=> 'required',
-            'tanggal_lahir'=> 'required',
-            'agama'=> 'required',
-            'gol_darah'=> 'required',
-            'alamat_asal'=> 'required',
-            'negara_asal'=> 'required',
-            'provinsi_asal'=> 'required',
-            'kota_asal'=> 'required',
-            'nik'=> 'required',
-            'kewarganegaraan'=> 'required',
-            'no_passport'=> 'required',
-            'status_perkawinan'=> 'required',
-            'gender'=> 'required',
-            'suku_bangsa'=> 'required',
-            'id_posisi'=> 'required',
-            'id_user'=> 'required',
-        ]);
-
-        $inputan = Karyawan::create([
-            'id_karyawan'=>Str::uuid()->toString('id_karyawan'),
-            'nama_lengkap'=> $request->get('nama_lengkap'),
-            'nama_panggilan'=>$request->get('nama_panggilan'),
-            'alamat_domisili'=>$request->get('alamat_domisili'),
-            'negara_domisili'=>$request->get('negara_domisili'),
-            'provinsi_domisili'=>$request->get('provinsi_domisili'),
-            'kota_domisili'=>$request->get('kota_domisili'),
-            'tempat_lahir'=>$request->get('tempat_lahir'),
-            'tanggal_lahir'=>$request->get('tanggal_lahir'),
-            'agama'=>$request->get('agama'),
-            'gol_darah'=>$request->get('gol_darah'),
-            'alamat_asal'=>$request->get('alamat_asal'),
-            'negara_asal'=>$request->get('negara_asal'),
-            'provinsi_asal'=>$request->get('provinsi_asal'),
-            'kota_asal'=>$request->get('kota_asal'),
-            'nik'=>$request->get('nik'),
-            'kewarganegaraan'=>$request->get('kewarganegaraan'),
-            'no_passport'=>$request->get('no_passport'),
-            'status_perkawinan'=>$request->get('status_perkawinan'),
-            'gender'=>$request->get('gender'),
-            'suku_bangsa'=>$request->get('suku_bangsa'),
-            'id_posisi'=>$request->get('id_posisi'),
-            'id_user'=>$request->get('id_user')
-        ]);
-        $data = 
-    	['status' => true,
-         'message' => 'Berhasil Ditambahkan',
-         'code' => 200,
-         'hasil' => $inputan];
-
-        return [
-            'data' => $data
         ];}
 
     public function view($id_karyawan){
@@ -174,3 +113,63 @@ class C_Karyawan extends Controller
         ], 404);}
 
 }
+
+// public function inputdata(Request $request) {
+    //     $this->validate($request, [
+    //         // 'id_karyawan' => 'required',
+    //         // 'nama_lengkap'=> 'required', 
+    //         // 'nama_panggilan'=> 'required',
+    //         // 'alamat_domisili'=> 'required',
+    //         // 'negara_domisili'=> 'required',
+    //         // 'provinsi_domisili'=> 'required',
+    //         // 'kota_domisili'=> 'required',
+    //         // 'tempat_lahir'=> 'required',
+    //         // 'tanggal_lahir'=> 'required',
+    //         // 'agama'=> 'required',
+    //         // 'gol_darah'=> 'required',
+    //         // 'alamat_asal'=> 'required',
+    //         // 'negara_asal'=> 'required',
+    //         // 'provinsi_asal'=> 'required',
+    //         // 'kota_asal'=> 'required',
+    //         // 'nik'=> 'required',
+    //         // 'kewarganegaraan'=> 'required',
+    //         // 'no_passport'=> 'required',
+    //         // 'status_perkawinan'=> 'required',
+    //         // 'gender'=> 'required',
+    //         // 'suku_bangsa'=> 'required',
+    //         // 'id_posisi'=> 'required',
+    //         // 'id_user'=> 'required',
+    //     ]);
+    //     $inputan = Karyawan::create([
+            
+    //         'nama_lengkap'=> $request->get('nama_lengkap'),
+    //         'nama_panggilan'=>$request->get('nama_panggilan'),
+    //         'alamat_domisili'=>$request->get('alamat_domisili'),
+    //         'negara_domisili'=>$request->get('negara_domisili'),
+    //         'provinsi_domisili'=>$request->get('provinsi_domisili'),
+    //         'kota_domisili'=>$request->get('kota_domisili'),
+    //         'tempat_lahir'=>$request->get('tempat_lahir'),
+    //         'tanggal_lahir'=>$request->get('tanggal_lahir'),
+    //         'agama'=>$request->get('agama'),
+    //         'gol_darah'=>$request->get('gol_darah'),
+    //         'alamat_asal'=>$request->get('alamat_asal'),
+    //         'negara_asal'=>$request->get('negara_asal'),
+    //         'provinsi_asal'=>$request->get('provinsi_asal'),
+    //         'kota_asal'=>$request->get('kota_asal'),
+    //         'nik'=>$request->get('nik'),
+    //         'kewarganegaraan'=>$request->get('kewarganegaraan'),
+    //         'no_passport'=>$request->get('no_passport'),
+    //         'status_perkawinan'=>$request->get('status_perkawinan'),
+    //         'gender'=>$request->get('gender'),
+    //         'suku_bangsa'=>$request->get('suku_bangsa'),
+    //         'id_posisi'=>$request->get('id_posisi'),
+    //     ]);
+    //     $data = 
+    // 	['status' => true,
+    //      'message' => 'Berhasil Ditambahkan',
+    //      'code' => 200,
+    //      'hasil' => $inputan];
+
+    //     return [
+    //         'data' => $data
+    //     ];}

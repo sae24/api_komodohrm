@@ -58,7 +58,7 @@ $router->post('/updateDataAbsensiLevel/{id_absensi_level}','C_Absensi_Level@upda
 $router->delete('/deleteDataAbsensiLevel/{id_absensi_level}','C_Absensi_Level@delete');
 
 //CRUD API KARYAWAN
-$router->post('/tambahDataKaryawan', 'C_Karyawan@inputdata');
+// $router->post('/tambahDataKaryawan', 'C_Karyawan@inputdata');
 $router->get('/viewsDataKaryawan','C_Karyawan@index');
 $router->get('/viewDataKaryawan/{id_karyawan}','C_Karyawan@view');
 $router->put('/updateDataKaryawan/{id_karyawan}','C_Karyawan@update');
