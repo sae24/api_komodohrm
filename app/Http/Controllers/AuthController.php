@@ -2,91 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
-use App\Models\User;
-use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
-use Firebase\JWT\ExpiredException;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\JWTAuth;
 
-class AuthController extends BaseController 
+class AuthController extends Controller
 {
     /**
-     * The request instance.
-     *
-     * @var \Illuminate\Http\Request
+     * @var TymonJWTAuthJWTAuth
      */
-    private $request;
+    protected $jwt;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return void
-     */
-    public function __construct(Request $request) {
-        $this->request = $request;
+    public function __construct(JWTAuth $jwt)
+    {
+        $this->jwt = $jwt;
     }
 
-    /**
-     * Create a new token.
-     * 
-     * @param  \App\User   $user
-     * @return string
-     */
-    protected function jwt(User $user) {
-        $payload = [
-            'iss' => "lumen-jwt", 
-            'sub/id' => $user->id_user, // Subjek  token
-            'iat' => time(), // Waktu token dibuat. 
-            'exp' => time() + 60*60 // waktu token kadaluarsa
-        ];
-        
-        
-        return JWT::encode($payload, env('JWT_SECRET'));
-    } 
-
-    /**
-     * Authenticate a user and return the token if the provided credentials are correct.
-     * 
-     * @param  \App\User   $user 
-     * @return mixed
-     */
-    public function authenticate(User $user) {
-        $this->validate($this->request, [
-            'email'     => 'required|email',
-            'password'  => 'required'
+    public function loginPost(Request $request)
+    {
+        $this->validate($request, [
+            'email'    => 'required|email|max:255',
+            'password' => 'required',
         ]);
 
-        // Mencari email user
-        $user = User::where('email', $this->request->input('email'))->first();
 
-        if (!$user) {
-            return response()->json([
-                'status'=>'failed',
-                'error' => 'Email tidak ada.',
-                'message'=>'Gagal Genrate Token',
-                'code'=>400
-            ], 400);
+
+        try {
+            if (! $token = $this->jwt->attempt($request->only('email', 'password'))) {
+                return response()->json(['user_not_found'], 404);
+            }
+        } catch (TokenExpiredException $e) {
+            return response()->json(['token_expired'], $e->getStatusCode());
+        } catch (TokenInvalidException $e) {
+            return response()->json(['token_invalid'], $e->getStatusCode());
+        } catch (JWTException $e) {
+            return response()->json(['token_absent' => $e->getMessage()], $e->getStatusCode());
         }
 
-        // Verifikasi passwordnya dan genrate token
-        if (Hash::check($this->request->input('password'), $user->password)) {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Berhasil Genrate Token',
-                'code' => 200,
-                'token' => $this->jwt($user)
-            ], 200);
-        }
-
-        // ketika tidak masuk kondisi manapun
-        return response()->json([
-            'status'=>'failed',
-            'error' => 'Email atau password salah.',
-            'message'=>'Gagal Genrate Token',
-            'code'=>400
-        ], 400);
+        return response()->json(compact('token'));
     }
 }

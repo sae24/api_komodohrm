@@ -2224,17 +2224,17 @@
     },
     {
         "name": "nesbot/carbon",
-        "version": "2.29.1",
-        "version_normalized": "2.29.1.0",
+        "version": "2.30.0",
+        "version_normalized": "2.30.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/briannesbitt/Carbon.git",
-            "reference": "e509be5bf2d703390e69e14496d9a1168452b0a2"
+            "reference": "912dff66d2690ca66abddb9b291a1df5f371d3b4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e509be5bf2d703390e69e14496d9a1168452b0a2",
-            "reference": "e509be5bf2d703390e69e14496d9a1168452b0a2",
+            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/912dff66d2690ca66abddb9b291a1df5f371d3b4",
+            "reference": "912dff66d2690ca66abddb9b291a1df5f371d3b4",
             "shasum": ""
         },
         "require": {
@@ -2250,7 +2250,7 @@
             "phpunit/phpunit": "^7.5 || ^8.0",
             "squizlabs/php_codesniffer": "^3.4"
         },
-        "time": "2020-01-21T09:36:43+00:00",
+        "time": "2020-02-07T15:25:46+00:00",
         "bin": [
             "bin/carbon"
         ],
@@ -5711,12 +5711,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/tymondesigns/jwt-auth.git",
-            "reference": "f57a0ff33f20d2a0c3ebc9e13ce8382a83f921a8"
+            "reference": "f72b8eb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/f57a0ff33f20d2a0c3ebc9e13ce8382a83f921a8",
-            "reference": "f57a0ff33f20d2a0c3ebc9e13ce8382a83f921a8",
+            "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/f72b8eb",
+            "reference": "f72b8eb",
             "shasum": ""
         },
         "require": {
