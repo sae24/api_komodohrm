@@ -1,7 +1,4 @@
 <?php
-use App\Models\User;
-use \Illuminate\Http\Request;
-use \Illuminate\Auth\RequestGuard;
 use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +20,7 @@ $router->get('/key', function() {
 //LOGIN USER
 $router->post('auth/login','AuthController@loginPost');
 $router->group(
-    ['middleware' => 'jwt.auth'], 
+    ['middleware' => 'auth'], 
     function() use ($router) {
         $router->get('/viewsDataAbsensi','C_Absensi@index');
         $router->get('/viewDataAbsensi/{id_absensi}','C_Absensi@view');

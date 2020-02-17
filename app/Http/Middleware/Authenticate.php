@@ -4,41 +4,35 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use JWTAuth;
 
-class Authenticate
+class Authenticate extends BaseMiddleware
 {
-    /**
-     * The authentication guard factory instance.
-     *
-     * @var \Illuminate\Contracts\Auth\Factory
-     */
-    protected $auth;
-
-    /**
-     * Create a new middleware instance.
-     *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
-     * @return void
-     */
-    public function __construct(Auth $auth)
-    {
-        $this->auth = $auth;
-    }
 
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
+     * 
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next)
     {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+        } catch (JWTException $e) {
+            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
+                return response()->json(['status' => 'Token Salah']);
+            }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
+                return response()->json(['status' => 'Token Kadaluarsa']);
+            }else{
+                return response()->json(['status' => 'Token Tidak Ada']);
+            }
         }
-
         return $next($request);
     }
 }
+

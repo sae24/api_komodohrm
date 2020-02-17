@@ -26,9 +26,6 @@ class AuthController extends Controller
             'email'    => 'required|email|max:255',
             'password' => 'required',
         ]);
-
-
-
         try {
             if (! $token = $this->jwt->attempt($request->only('email', 'password'))) {
                 return response()->json(['user_not_found'], 404);
