@@ -25,11 +25,20 @@ class Authenticate extends BaseMiddleware
             $user = JWTAuth::parseToken()->authenticate();
         } catch (JWTException $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-                return response()->json(['status' => 'Token Salah']);
+                return response()->json([
+                    'message'=>'Invalid Token',
+                    'status' => 'Failed'
+                ]);
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
-                return response()->json(['status' => 'Token Kadaluarsa']);
+                return response()->json([
+                    'message'=>'Token Expired',
+                    'status' => 'Failed'
+                    ]);
             }else{
-                return response()->json(['status' => 'Token Tidak Ada']);
+                return response()->json([
+                    'message'=>'Token Not Found',
+                    'status' => 'Failed'
+                    ]);
             }
         }
         return $next($request);
