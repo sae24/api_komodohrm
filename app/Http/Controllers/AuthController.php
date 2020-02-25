@@ -23,21 +23,12 @@ class AuthController extends Controller
     public function loginPost(Request $request)
     {
         $this->validate($request, [
-            'email'    => 'required|email|max:255',
+            'username'    => 'required',
             'password' => 'required',
         ]);
-        try {
-            if (! $token = $this->jwt->attempt($request->only('email', 'password'))) {
-                return response()->json(['user_not_found'], 404);
-            }
-        } catch (TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
-        } catch (TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        } catch (JWTException $e) {
-            return response()->json(['token_absent' => $e->getMessage()], $e->getStatusCode());
+        if (! $token = $this->jwt->attempt($request->only('username', 'password'))) {
+            return response()->json(['user_not_found'], 404);
         }
-
-        return response()->json(compact('token'));
+        return response()->json(['status'=>'success','code'=>200,'result'=>compact('token')]);
     }
 }

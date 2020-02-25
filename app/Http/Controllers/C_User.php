@@ -4,17 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Karyawan;
 use App\Models\User;
+use App\Models\Branch;
+use App\Models\Departement;
+use App\Models\Company;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
-use App\Helpers\Helper;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Facades\JWTFactory;
 use App\Message;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 use DateTime;
 
 class C_User extends Controller
@@ -27,7 +25,6 @@ class C_User extends Controller
             'code' => 200,       
             'hasil' => User::all()
         ];
-
         return [
             'data'=> $data
         ];
@@ -36,7 +33,7 @@ class C_User extends Controller
     public function inputdata(Request $request) {
         $this->validate($request, [
             // 'id_user' => 'required',
-            'nama'=> 'required', 
+            'username'=> 'required', 
             'email'=> 'required',
             'password'=> 'required',
             // 'role'=> 'required',
@@ -47,7 +44,7 @@ class C_User extends Controller
         $id_user=Str::uuid()->toString('id_user');
         $inputan = User::create([
             'id_user'=>$id_user,
-            'nama'=> $request->get('nama'), 
+            'username'=> $request->get('username'), 
             'email'=> $request->get('email'),
             'password'=> Hash::make($request->get('password')),
             'role'=> $request->get('role'),
@@ -55,8 +52,9 @@ class C_User extends Controller
             'created_date'=> Carbon::now()->toDateString('created_date'),
             'status'=> $request->get('status')
         ]);
+        $id_karyawan=Str::uuid()->toString('id_karyawan');
         Karyawan::create([
-            'id_karyawan'=>Str::uuid()->toString('id_karyawan'),
+            'id_karyawan'=>$id_karyawan,
             'id_user'=>$id_user
         ]);
         $data = 
@@ -66,11 +64,10 @@ class C_User extends Controller
             'code' => 200,        
             'hasil' => $inputan
         ];
-
         return [
             'data' => $data
-        ];}
-
+        ];
+    }
     public function view($id_user){
         $post = User::find($id_user);
         if (! $post) {
@@ -79,15 +76,16 @@ class C_User extends Controller
             ]);
         }
 
-        $data = 
-    	['status' => true,
-         'message' => 'Data Ditemukan',
-         'code' => 200,
-         'hasil' => $post];
-
+        $data = [
+            'status' => true,
+            'message' => 'Data Ditemukan',
+            'code' => 200,
+            'hasil' => $post
+        ];
         return [
             'data' => $data
-        ];}
+        ];
+    }
 
     public function update(Request $request, $id_user){
     
@@ -99,16 +97,15 @@ class C_User extends Controller
             'password'=> Hash::make($request->get('password')),
             'role'=> $request->get('role'),
             'created_by'=> $request->get('created_by'),
-            'created_date'=> $request->get('created_date'),
+            'created_date'=> Carbon::now()->toDateString('created_date'),
             'status'=> $request->get('status')
         ]);
-
-        $data = 
-    	['status' => true,
-         'message' => 'Data Berhasil Diupdate',
-         'code' => 200,
-         'hasil' => $post];
-
+        $data = [
+            'status' => true,
+            'message' => 'Data Berhasil Diupdate',
+            'code' => 200,
+            'hasil' => $post
+        ];
         return response()->json([
             'data' => $data
         ]);
@@ -118,11 +115,12 @@ class C_User extends Controller
         'message' => 'Data Gagal Diupdate',
         'code' => 404,
         'hasil' => null
-    ]);}
+    ]);
+}
 
     //update with post
 	public function updatedata(Request $request, $id_user){
-	 $this->validate($request,
+	$this->validate($request,
     [
         'nama'=> 'required', 
         'email'=> 'required',
@@ -135,15 +133,14 @@ class C_User extends Controller
     $post = User::find($id_user);
     if ($post) {
         $post->update($request->all());
-
-        $data = 
-    	['status' => true,
-         'message' => 'Data Berhasil Diupdate',
-         'code' => 200,
-         'hasil' => $post];
-
+        $data = [
+            'status' => true,
+            'message' => 'Data Berhasil Diupdate',
+            'code' => 200,
+            'hasil' => $post
+        ];
         return response()->json([
-        	'data' => $data
+            'data' => $data
         ]);}
     return response()->json([
         'status' => false,
@@ -154,35 +151,22 @@ class C_User extends Controller
 
 	public function delete($id_user){
         $post = User::find($id_user);
-
         if ($post) {
             $post->delete();
-
-        $data = 
-    		['status' => true,
-         	 'message' => 'Data Berhasil Dihapus',
-         	 'code' => 200,
-         	 'hasil' => $post]; 
+        $data = [
+            'status' => true,
+            'message' => 'Data Berhasil Dihapus',
+            'code' => 200,
+            'hasil' => $post]; 
             return response()->json([
-        		'data' => $data
+                'data' => $data
             ]);
         }
-
         return response()->json([
             'status' => false,
-        	'message' => 'Data Gagal Dihapus',
-        	'code' => 404,
-        	'hasil' => null
-        ], 404);}
-        public function login (Request $request){
-            $validator=Validator::make($request->all(),[
-                'email'=>'required|string',
-                'password'=>'required|string'
-            ],Message::validate());
-            if ($validator->fails()) {
-                return response()->json([
-                    'message'=>'Gagal Login'
-                ],404);
-            }
-        }
+            'message' => 'Data Gagal Dihapus',
+            'code' => 404,
+            'hasil' => null
+        ], 404);
+    }
 }

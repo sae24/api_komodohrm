@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AbsensiLevel extends Migration
+class Gender extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AbsensiLevel extends Migration
      */
     public function up()
     {
-        Schema::create('absensi_level', function (Blueprint $table){
-            $table->uuid('id_absensi_level')->primary();
-            $table->string('level')->nullable();
-            $table->string('label')->nullable();
+        Schema::create('gender', function (Blueprint $table){
+            $table->uuid('id_gender')->primary();
+            $table->string('gender_description')->nullable();
             });
     }
 
@@ -27,6 +26,6 @@ class AbsensiLevel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('absensi_level');
+        Schema::dropIfExists('gender');
     }
 }
