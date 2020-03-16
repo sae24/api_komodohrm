@@ -12,7 +12,7 @@
  Target Server Version : 110005
  File Encoding         : 65001
 
- Date: 10/02/2020 16:54:29
+ Date: 16/03/2020 12:08:26
 */
 
 
@@ -23,17 +23,18 @@ DROP TABLE IF EXISTS "public"."absensi_level";
 CREATE TABLE "public"."absensi_level" (
   "id_absensi_level" uuid NOT NULL,
   "level" varchar(255) COLLATE "pg_catalog"."default",
-  "label" varchar(255) COLLATE "pg_catalog"."default",
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "label" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 
 -- ----------------------------
 -- Records of absensi_level
 -- ----------------------------
-INSERT INTO "public"."absensi_level" VALUES ('66e38b1a-38b7-4e09-ae5e-ba6830b72e28', 'aweu', 'pakuak', '2020-02-10 02:14:20', '2020-02-10 02:14:20');
-INSERT INTO "public"."absensi_level" VALUES ('6c9e098a-8322-4baf-aa0d-d598b383447d', '213123', 'pakuakasdasdasd', '2020-02-10 15:19:29', '2020-02-10 15:19:29');
+INSERT INTO "public"."absensi_level" VALUES ('be1a1644-2eaa-4cf5-b5c2-af2e9f47728b', '1', 'excelent');
+INSERT INTO "public"."absensi_level" VALUES ('9e306460-9559-44e7-950e-3ec64479e6d0', '2', 'normal');
+INSERT INTO "public"."absensi_level" VALUES ('807d5ff2-445b-4f73-92bb-cc311ddc75c6', '3', 'late
+');
+INSERT INTO "public"."absensi_level" VALUES ('f4e25ab7-54c2-45ba-9921-783e51b81a7a', '4', 'danger');
 
 -- ----------------------------
 -- Primary Key structure for table absensi_level

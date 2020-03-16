@@ -12,7 +12,7 @@
  Target Server Version : 110005
  File Encoding         : 65001
 
- Date: 10/02/2020 16:54:53
+ Date: 16/03/2020 12:08:09
 */
 
 
@@ -22,24 +22,23 @@
 DROP TABLE IF EXISTS "public"."users";
 CREATE TABLE "public"."users" (
   "id_user" uuid NOT NULL,
-  "nama" varchar(255) COLLATE "pg_catalog"."default",
+  "username" varchar(255) COLLATE "pg_catalog"."default",
   "email" varchar(255) COLLATE "pg_catalog"."default",
   "password" varchar(255) COLLATE "pg_catalog"."default",
   "role" varchar(255) COLLATE "pg_catalog"."default",
   "created_by" varchar(255) COLLATE "pg_catalog"."default",
   "created_date" date,
-  "status" int4,
-  "created_at" timestamp(0),
-  "updated_at" timestamp(0)
+  "status" int4
 )
 ;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO "public"."users" VALUES ('46f74b9f-824b-4607-b766-3747c7ba05e4', 'ojan herdika', 'ojan@gmail.com', '$2y$10$QfMn8BXnD12fJMzkVUmJPOpVeR5HU36F259ZaSVQD5ek0y1ndEUHq', 'admin', 'admin', '2020-02-04', 1, '2020-02-10 02:27:09', '2020-02-10 02:27:09');
+INSERT INTO "public"."users" VALUES ('06828906-de8b-4e09-8ef5-14d2a38285db', 'ojanherdika', 'ojanherdika@gmail.com', '$2y$10$SqDZvUZCMSK1SKC4o0D7O.r4xCWA2Ls3C8AlNPyiXOPDT9td1fEqa', 'admin', 'admin', '2020-02-20', 1);
+INSERT INTO "public"."users" VALUES ('140b8270-2079-4099-8622-13cf4da2e56c', 'ojanhtp', 'ojanhtp@gmail.com', '$2y$10$LnoS/7CjDO19eFHPgAusleucxh7n6gGXnJYhPW1Ty94Mgb6Rz/CPy', 'admin', 'admin', '2020-02-25', 1);
 
 -- ----------------------------
 -- Primary Key structure for table users
 -- ----------------------------
-ALTER TABLE "public"."users" ADD CONSTRAINT "users_pkey1" PRIMARY KEY ("id_user");
+ALTER TABLE "public"."users" ADD CONSTRAINT "users_pkey" PRIMARY KEY ("id_user");

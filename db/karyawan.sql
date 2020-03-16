@@ -12,7 +12,7 @@
  Target Server Version : 110005
  File Encoding         : 65001
 
- Date: 10/02/2020 16:54:38
+ Date: 16/03/2020 12:08:18
 */
 
 
@@ -52,7 +52,8 @@ CREATE TABLE "public"."karyawan" (
 -- ----------------------------
 -- Records of karyawan
 -- ----------------------------
-INSERT INTO "public"."karyawan" VALUES ('59b98d05-db09-41a5-b5f6-de1e3e08f0de', 'Fauzan Herdika Tubagus Putra', 'ojan', 'komp.permata biru', 'indo', 'jabar', 'bandung', 'bandung', '1999-10-16', 'islam', 'O', 'komp.permata', 'indo', 'jabar', 'bandung', '123123', 'wni', 'gapunya', 'belum kawin', 'laki', 'sunda', 'asd', 'asdasd', '2020-02-10 04:38:31', '2020-02-10 04:38:31');
+INSERT INTO "public"."karyawan" VALUES ('4c737842-1ec7-43e4-91df-88387b7ff823', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '06828906-de8b-4e09-8ef5-14d2a38285db', '2020-02-20 09:27:39', '2020-02-20 09:27:39');
+INSERT INTO "public"."karyawan" VALUES ('f5fad106-da0a-4ab6-abff-fd7a35f0da7d', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '140b8270-2079-4099-8622-13cf4da2e56c', '2020-02-25 14:46:48', '2020-02-25 14:46:48');
 
 -- ----------------------------
 -- Primary Key structure for table karyawan
